@@ -156,6 +156,19 @@ export default function MainScreen({ navigation }) {
             <Text style={styles.errorText}>{error}</Text>
           </View>
         ) : null}
+
+        {result && !loading && (
+          <View style={styles.resultBox}>
+            <Text style={styles.resultText}>
+              {result.originalAmount} {result.base} ={" "}
+              {result.convertedAmount.toFixed(4)} {result.target}
+            </Text>
+            <Text style={styles.rateText}>
+              Exchange rate used: 1 {result.base} = {result.rate}{" "}
+              {result.target}
+            </Text>
+          </View>
+        )}
       </View>
     </View>
   );
@@ -214,5 +227,20 @@ const styles = StyleSheet.create({
   },
   errorText: {
     color: "#b91c1c",
+  },
+  resultBox: {
+    marginTop: 12,
+    padding: 12,
+    backgroundColor: "#ecfdf3",
+    borderRadius: 6,
+  },
+  resultText: {
+    fontSize: 18,
+    fontWeight: "600",
+  },
+  rateText: {
+    marginTop: 4,
+    fontSize: 14,
+    color: "#374151",
   },
 });
