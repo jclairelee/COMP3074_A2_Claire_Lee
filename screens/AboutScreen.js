@@ -7,10 +7,10 @@ export default function AboutScreen() {
 
       <View style={styles.card}>
         <Text style={styles.label}>Name:</Text>
-        <Text style={styles.value}>Your Full Name Here</Text>
+        <Text style={styles.value}>Claire Lee</Text>
 
         <Text style={styles.label}>Student ID:</Text>
-        <Text style={styles.value}>YourStudentIDHere</Text>
+        <Text style={styles.value}>100882058</Text>
 
         <Text style={[styles.label, { marginTop: 12 }]}>
           Application Description:
