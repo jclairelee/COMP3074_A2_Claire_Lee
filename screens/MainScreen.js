@@ -9,6 +9,33 @@ export default function MainScreen({ navigation }) {
   const [baseCurrency, setBaseCurrency] = useState("CAD");
   const [targetCurrency, setTargetCurrency] = useState("USD");
   const [amount, setAmount] = useState("1");
+  const validateInputs = () => {
+    setError("");
+    setResult(null);
+
+    const base = baseCurrency.trim().toUpperCase();
+    const target = targetCurrency.trim().toUpperCase();
+
+    if (!/^[A-Z]{3}$/.test(base)) {
+      setError("Base currency must be a 3-letter uppercase code (e.g., CAD).");
+      return null;
+    }
+
+    if (!/^[A-Z]{3}$/.test(target)) {
+      setError(
+        "Destination currency must be a 3-letter uppercase code (e.g., USD)."
+      );
+      return null;
+    }
+
+    const numericAmount = parseFloat(amount);
+    if (isNaN(numericAmount) || numericAmount <= 0) {
+      setError("Amount must be a positive number.");
+      return null;
+    }
+
+    return { base, target, numericAmount };
+  };
 
   return (
     <View style={styles.container}>
