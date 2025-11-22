@@ -3,6 +3,9 @@ import { Button, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import LabeledInput from "../components/LabeledInput";
 
 export default function MainScreen({ navigation }) {
+  const API_URL = "https://api.freecurrencyapi.com/v1/latest";
+  const API_KEY = "fca_live_mPgnrI9KBNQcUHs1bp4rHNOvC6S6p7482XdoGLze";
+
   const [result, setResult] = useState(null);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -35,6 +38,55 @@ export default function MainScreen({ navigation }) {
     }
 
     return { base, target, numericAmount };
+  };
+  const handleConvert = async () => {
+    const validated = validateInputs();
+    if (!validated) return;
+
+    const { base, target, numericAmount } = validated;
+
+    setLoading(true);
+    setError("");
+    setResult(null);
+
+    try {
+      const url = `${API_URL}?apikey=${API_KEY}&base_currency=${base}&currencies=${target}`;
+
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`API responded with status ${response.status}`);
+      }
+
+      const json = await response.json();
+
+      if (!json || !json.data) {
+        throw new Error("Invalid response format from API.");
+      }
+
+      const rate = json.data[target];
+      if (rate === undefined || rate === null) {
+        throw new Error(
+          `Exchange rate for ${target} based on ${base} not found.`
+        );
+      }
+
+      const convertedAmount = numericAmount * rate;
+
+      setResult({
+        rate,
+        convertedAmount,
+        base,
+        target,
+        originalAmount: numericAmount,
+      });
+    } catch (e) {
+      setError(
+        e.message ||
+          "An error occurred while fetching the exchange rate. Please try again."
+      );
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -77,7 +129,11 @@ export default function MainScreen({ navigation }) {
         />
 
         <View style={styles.buttonContainer}>
-          <Button title="Convert" onPress={() => {}} />
+          <Button
+            title={loading ? "Converting..." : "Convert"}
+            onPress={handleConvert}
+            disabled={loading}
+          />
         </View>
       </View>
     </View>
