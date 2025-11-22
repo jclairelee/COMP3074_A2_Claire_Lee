@@ -150,6 +150,12 @@ export default function MainScreen({ navigation }) {
             <Text style={styles.loadingText}>Fetching exchange rate...</Text>
           </View>
         )}
+
+        {error ? (
+          <View style={styles.errorBox}>
+            <Text style={styles.errorText}>{error}</Text>
+          </View>
+        ) : null}
       </View>
     </View>
   );
@@ -199,5 +205,14 @@ const styles = StyleSheet.create({
   loadingText: {
     marginLeft: 8,
     fontSize: 14,
+  },
+  errorBox: {
+    marginTop: 8,
+    padding: 10,
+    backgroundColor: "#fee2e2",
+    borderRadius: 6,
+  },
+  errorText: {
+    color: "#b91c1c",
   },
 });
