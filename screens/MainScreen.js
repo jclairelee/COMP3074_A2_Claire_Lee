@@ -1,5 +1,13 @@
 import { useState } from "react";
-import { Button, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  ActivityIndicator,
+  Button,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+
 import LabeledInput from "../components/LabeledInput";
 
 export default function MainScreen({ navigation }) {
@@ -135,6 +143,13 @@ export default function MainScreen({ navigation }) {
             disabled={loading}
           />
         </View>
+
+        {loading && (
+          <View style={styles.loadingContainer}>
+            <ActivityIndicator size="large" />
+            <Text style={styles.loadingText}>Fetching exchange rate...</Text>
+          </View>
+        )}
       </View>
     </View>
   );
@@ -175,5 +190,14 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     marginTop: 8,
+  },
+  loadingContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 8,
+  },
+  loadingText: {
+    marginLeft: 8,
+    fontSize: 14,
   },
 });
