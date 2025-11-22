@@ -3,6 +3,9 @@ import { Button, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import LabeledInput from "../components/LabeledInput";
 
 export default function MainScreen({ navigation }) {
+  const [result, setResult] = useState(null);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const [baseCurrency, setBaseCurrency] = useState("CAD");
   const [targetCurrency, setTargetCurrency] = useState("USD");
   const [amount, setAmount] = useState("1");
