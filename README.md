@@ -13,13 +13,13 @@ It includes input validation, API error handling, navigation and a reusable comp
 - Enter **destination currency code**
 - Enter **amount** (default: 1)
 - **Validation**
-   - Currency codes must be **3 uppercase letters**
-   - Amount must be **positive**
+  - Currency codes must be **3 uppercase letters**
+  - Amount must be **positive**
 - Calls **FreeCurrencyAPI** to retrieve the latest exchange rate
 - Displays:
-   - Converted amount
-   - Exchange rate used
-- **Error handling** (invalid key, missing rates, network errors, etc.)
+  - Converted amount
+  - Exchange rate used
+- **Error handling** (invalid key, missing rates, network errors)
 - **Loading indicator** during API call
 - Convert button is **disabled while loading**
 - Uses a reusable UI component (`LabeledInput`)
@@ -45,28 +45,16 @@ npx expo start
 
 ### 3. Run the app
 Choose one of the following:
-
 - Press **a** → Android Emulator
-- Scan QR code with **Expo Go** on your phone
-- Press **w** → Web preview (limited)
+- Scan QR code with **Expo Go**
+- Press **w** → Web preview
 
 ---
 
+## ❗ API Key Usage
 
-Your Babel config must include:
-
-```js
-[
-  "module:react-native-dotenv",
-  { "moduleName": "@env", "path": ".env" }
-]
-```
-
-Use in code:
-
-```js
-import { FREE_CURRENCY_API_KEY } from "@env";
-```
+This project **does not use a .env file**.  
+The FreeCurrencyAPI key is **hard-coded directly inside MainScreen.js** for simplicity.
 
 ---
 
@@ -79,21 +67,17 @@ A2_Claire_Lee/
 │ app.json
 │ README.md
 │
-├──screens/
+├── screens/
 │   ├── MainScreen.js
 │   └── AboutScreen.js
 │
-├──components/
+├── components/
 │   └── LabeledInput.js
 │
-└──assets/
+└── assets/
 ```
-
-## 📝 AI Usage Declaration
-The file `aud.pdf` is included as required.
 
 ---
 
 ## 🧾 License
 This project was created for academic purposes for COMP3074.
-
