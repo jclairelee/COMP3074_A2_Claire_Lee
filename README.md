@@ -1,50 +1,99 @@
-# Welcome to your Expo app 👋
+# 📱 A2_Claire_Lee — Currency Converter App
+COMP3074 — Assignment 2 (Fall 2025)
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+This project is a React Native (Expo) mobile application that converts currency values using the FreeCurrencyAPI.  
+It includes input validation, API error handling, navigation and a reusable component.
 
-## Get started
+---
 
-1. Install dependencies
+## 🚀 Features
 
-   ```bash
-   npm install
-   ```
+### 🟦 Main Screen
+- Enter **base currency code** (default: CAD)
+- Enter **destination currency code**
+- Enter **amount** (default: 1)
+- **Validation**
+   - Currency codes must be **3 uppercase letters**
+   - Amount must be **positive**
+- Calls **FreeCurrencyAPI** to retrieve the latest exchange rate
+- Displays:
+   - Converted amount
+   - Exchange rate used
+- **Error handling** (invalid key, missing rates, network errors, etc.)
+- **Loading indicator** during API call
+- Convert button is **disabled while loading**
+- Uses a reusable UI component (`LabeledInput`)
 
-2. Start the app
+### 🟩 About Screen
+- Shows **full student name**
+- Shows **student ID**
+- Short description of the app
 
-   ```bash
-   npx expo start
-   ```
+---
 
-In the output, you'll find options to open the app in a
+## 📦 Installation & Running
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
+### 1. Install dependencies
 ```bash
-npm run reset-project
+npm install
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+### 2. Start the development server
+```bash
+npx expo start
+```
 
-## Learn more
+### 3. Run the app
+Choose one of the following:
 
-To learn more about developing your project with Expo, look at the following resources:
+- Press **a** → Android Emulator
+- Scan QR code with **Expo Go** on your phone
+- Press **w** → Web preview (limited)
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+---
 
-## Join the community
 
-Join our community of developers creating universal apps.
+Your Babel config must include:
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+```js
+[
+  "module:react-native-dotenv",
+  { "moduleName": "@env", "path": ".env" }
+]
+```
+
+Use in code:
+
+```js
+import { FREE_CURRENCY_API_KEY } from "@env";
+```
+
+---
+
+## 📁 Project Structure
+
+```
+A2_Claire_Lee/
+│ App.js
+│ package.json
+│ app.json
+│ README.md
+│
+├──screens/
+│   ├── MainScreen.js
+│   └── AboutScreen.js
+│
+├──components/
+│   └── LabeledInput.js
+│
+└──assets/
+```
+
+## 📝 AI Usage Declaration
+The file `aud.pdf` is included as required.
+
+---
+
+## 🧾 License
+This project was created for academic purposes for COMP3074.
+
