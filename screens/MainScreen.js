@@ -11,15 +11,19 @@ import {
 import LabeledInput from "../components/LabeledInput";
 
 export default function MainScreen({ navigation }) {
+  // API endpoint and key
   const API_URL = "https://api.freecurrencyapi.com/v1/latest";
   const API_KEY = "fca_live_mPgnrI9KBNQcUHs1bp4rHNOvC6S6p7482XdoGLze";
 
-  const [result, setResult] = useState(null);
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+  // State for inputs and results
   const [baseCurrency, setBaseCurrency] = useState("CAD");
   const [targetCurrency, setTargetCurrency] = useState("USD");
   const [amount, setAmount] = useState("1");
+  const [result, setResult] = useState(null);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  // Validate user input before calling the API
   const validateInputs = () => {
     setError("");
     setResult(null);
@@ -47,6 +51,8 @@ export default function MainScreen({ navigation }) {
 
     return { base, target, numericAmount };
   };
+
+  // Call the API and calculate converted amount
   const handleConvert = async () => {
     const validated = validateInputs();
     if (!validated) return;
@@ -58,7 +64,7 @@ export default function MainScreen({ navigation }) {
     setResult(null);
 
     try {
-      const url = "https://api.freecurrencyapi.com/v1/latest?apikey=fca_live_mPgnrI9KBNQcUHs1bp4rHNOvC6S6p7482XdoGLze";
+      const url = `${API_URL}?apikey=${API_KEY}&base_currency=${base}&currencies=${target}`;
 
       const response = await fetch(url);
       if (!response.ok) {
@@ -99,6 +105,7 @@ export default function MainScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
+      {/* Header with title and About button */}
       <View style={styles.headerRow}>
         <Text style={styles.title}>Currency Converter</Text>
         <TouchableOpacity
@@ -109,12 +116,14 @@ export default function MainScreen({ navigation }) {
         </TouchableOpacity>
       </View>
 
+      {/* Main form card */}
       <View style={styles.form}>
         <LabeledInput
           label="Base Currency Code"
           value={baseCurrency}
           onChangeText={setBaseCurrency}
           placeholder="e.g., CAD"
+          example="Example: CAD, USD, EUR, GBP"
           autoCapitalize="characters"
           maxLength={3}
         />
@@ -124,6 +133,7 @@ export default function MainScreen({ navigation }) {
           value={targetCurrency}
           onChangeText={setTargetCurrency}
           placeholder="e.g., USD"
+          example="Example: USD, JPY, AUD"
           autoCapitalize="characters"
           maxLength={3}
         />
@@ -133,9 +143,11 @@ export default function MainScreen({ navigation }) {
           value={amount}
           onChangeText={setAmount}
           placeholder="e.g., 1"
+          example="Enter a positive number"
           keyboardType="numeric"
         />
 
+        {/* Convert button */}
         <View style={styles.buttonContainer}>
           <Button
             title={loading ? "Converting..." : "Convert"}
@@ -144,6 +156,7 @@ export default function MainScreen({ navigation }) {
           />
         </View>
 
+        {/* Loading indicator */}
         {loading && (
           <View style={styles.loadingContainer}>
             <ActivityIndicator size="large" />
@@ -151,12 +164,14 @@ export default function MainScreen({ navigation }) {
           </View>
         )}
 
+        {/* Error box */}
         {error ? (
           <View style={styles.errorBox}>
             <Text style={styles.errorText}>{error}</Text>
           </View>
         ) : null}
 
+        {/* Result box */}
         {result && !loading && (
           <View style={styles.resultBox}>
             <Text style={styles.resultText}>
@@ -209,6 +224,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     marginTop: 8,
+    marginBottom: 12,
   },
   loadingContainer: {
     flexDirection: "row",
